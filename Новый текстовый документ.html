@@ -1,0 +1,516 @@
+Я добавил **значительно больше текста** на каждый слайд: развернутые описания, конкретные цифры, примеры и цитаты. Теперь презентация стала намного информативнее и лучше подходит для устного выступления.
+
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Презентация: Обезлесение – глобальная экологическая угроза</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a3f2c;
+            background-image: radial-gradient(circle at 10% 20%, #2a5a3a, #0e2a1c);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .presentation-container {
+            max-width: 1300px;
+            width: 100%;
+            background: transparent;
+            border-radius: 2rem;
+        }
+
+        .slide {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 2rem;
+            margin-bottom: 2rem;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+            scroll-margin-top: 1rem;
+            border-left: 8px solid #2d6a4f;
+        }
+
+        .slide:hover {
+            transform: scale(1.01);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(12px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .nav-btn {
+            background: #2d6a4f;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-btn:hover {
+            background: #1b4d3e;
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #1e5a3a, #2d6a4f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-left: 6px solid #2d6a4f;
+            padding-left: 1rem;
+            margin: 0 0 1.2rem 0;
+            color: #1e3a2f;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 1rem 0 0.5rem;
+            color: #2d6a4f;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .card-stat {
+            background: #eef4eb;
+            padding: 1rem 1.3rem;
+            border-radius: 1.5rem;
+            border-bottom: 3px solid #52b788;
+        }
+
+        .big-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1b4d3e;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0.8rem 0;
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.45;
+        }
+
+        li:before {
+            content: "🌿";
+            position: absolute;
+            left: 0;
+            color: #2d6a4f;
+        }
+
+        .badge {
+            background: #2d6a4f20;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1e5a3a;
+            display: inline-block;
+        }
+
+        .img-round {
+            width: 100%;
+            border-radius: 1.2rem;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+            margin: 0.7rem 0;
+            object-fit: cover;
+            max-height: 280px;
+        }
+
+        .img-small {
+            width: 100%;
+            border-radius: 1rem;
+            margin: 0.8rem 0 0.5rem 0;
+            max-height: 140px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .flex-img-text {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .flex-img-text .text {
+            flex: 2;
+        }
+        .flex-img-text .img-side {
+            flex: 1;
+            min-width: 150px;
+        }
+        .flex-img-text .img-side img {
+            width: 100%;
+            border-radius: 1rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+        }
+
+        .quote {
+            background: #e9f5e9;
+            padding: 1.3rem;
+            border-radius: 1.5rem;
+            font-style: italic;
+            margin-top: 1rem;
+            border-left: 4px solid #2d6a4f;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #cfe8cf;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 700px) {
+            .slide { padding: 1.5rem; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.4rem; }
+        }
+        hr { margin: 1rem 0; border-color: #cfe2cf; }
+        .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 1rem 0 0.5rem;
+        }
+        .text-block {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .subhead {
+            font-size: 1.1rem;
+            color: #2c5a42;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="presentation-container">
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prevSlideBtn"><i class="fas fa-chevron-left"></i> Назад</button>
+        <button class="nav-btn" id="nextSlideBtn">Вперёд <i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- СЛАЙД 1: ТИТУЛ -->
+    <div class="slide" id="slide1">
+        <div style="text-align: center;">
+            <i class="fas fa-tree" style="font-size: 3.5rem; color: #2d6a4f;"></i>
+            <h1>Обезлесение</h1>
+            <p style="font-size: 1.5rem; font-weight: 500;">причины, последствия и пути сохранения лесов</p>
+            <div class="subhead">Почему исчезновение лесов угрожает всей планете и что мы можем с этим сделать</div>
+            <img src="https://images.pexels.com/photos/432852/pexels-photo-432852.jpeg" alt="Лес сверху" class="img-round" style="max-height: 260px;">
+            <div style="margin-top: 1rem;"><i class="fas fa-globe-americas"></i> Автор: Экологическая инициатива • 2026</div>
+        </div>
+    </div>
+
+    <!-- СЛАЙД 2: СУТЬ ПРОБЛЕМЫ (ТЕКСТА МНОГО) -->
+    <div class="slide" id="slide2">
+        <h2><i class="fas fa-exclamation-triangle"></i> Суть проблемы</h2>
+        <div class="flex-img-text">
+            <div class="text">
+                <p class="text-block"><strong>Обезлесение (дефорестация)</strong> — это процесс превращения лесных земель в безлесные территории: сельскохозяйственные угодья, пастбища, плантации, городские зоны и пустоши. Ежегодно планета теряет около 10 миллионов гектаров леса — это площадь почти равная площади Исландии или Португалии. Особенно критическая ситуация в тропических лесах Амазонии, бассейна Конго и Юго-Восточной Азии.</p>
+                <div class="card-stat" style="margin-top: 1rem;">
+                    <div class="big-number">🌲 1 футбольное поле / 6 секунд</div>
+                    <p>Каждые 6 секунд исчезает участок леса размером с футбольное поле. За минуту — 10 полей, за час — 600, за день — 14 400. Масштабы уничтожения настолько велики, что их можно наблюдать из космоса.</p>
+                    <div class="big-number">⏳ 80% потери функций</div>
+                    <p>Леса исчезают быстрее, чем успевают восстанавливаться естественным путем. Полное восстановление экосистемы после вырубки занимает 100–200 лет, а некоторые виды растений и животных никогда не возвращаются.</p>
+                </div>
+            </div>
+            <div class="img-side">
+                <img src="https://images.pexels.com/photos/1670187/pexels-photo-1670187.jpeg" alt="Вырубленный лес">
+            </div>
+        </div>
+        <div class="quote">
+            <i class="fas fa-seedling"></i> <strong>Главный тезис:</strong> Леса перестают выполнять свои экологические функции (поглощение CO₂, регуляция климата, сохранение водного баланса, среда обитания для миллионов видов) быстрее, чем человечество их восстанавливает. Если ничего не менять, к 2050 году тропические леса Амазонии могут исчезнуть полностью, что станет необратимой точкой невозврата для всей планеты.
+        </div>
+    </div>
+
+    <!-- СЛАЙД 3: ПРИЧИНЫ (ТЕКСТА МНОГО) -->
+    <div class="slide" id="slide3">
+        <h2><i class="fas fa-tractor"></i> Причины обезлесения</h2>
+        <div class="grid-2col">
+            <div>
+                <h3><i class="fas fa-seedling"></i> Сельское хозяйство (~80%)</h3>
+                <ul>
+                    <li><strong>Расширение пастбищ для скота:</strong> 80% вырубки в Амазонии связано с разведением крупного рогатого скота. Бразилия — крупнейший в мире экспортер говядины, и спрос на неё продолжает расти.</li>
+                    <li><strong>Плантации:</strong> Пальмовое масло (Индонезия и Малайзия), соя (большая часть идёт на корм скоту в Европе и Китае), какао, кофе, каучук, бананы.</li>
+                    <li><strong>Подсечно-огневое земледелие:</strong> Традиционный метод, который при росте населения становится разрушительным.</li>
+                </ul>
+                <img src="https://images.pexels.com/photos/1267533/pexels-photo-1267533.jpeg" class="img-small" alt="Плантация">
+                <h3 style="margin-top: 1rem;"><i class="fas fa-industry"></i> Промышленная вырубка</h3>
+                <ul><li>Нелегальная заготовка ценных пород древесины (красное дерево, эбеновое, тиковое). Производство бумаги, мебели, стройматериалов. По оценкам Интерпола, нелегальная вырубка составляет 15–30% от всей мировой торговли древесиной.</li></ul>
+            </div>
+            <div>
+                <h3><i class="fas fa-fire"></i> Пожары и инфраструктура</h3>
+                <ul>
+                    <li><strong>Лесные пожары:</strong> часто возникают из-за поджогов для расчистки земли под сельское хозяйство. В 2019 году в Амазонии было зафиксировано рекордное количество пожаров — более 90 000 очагов за год.</li>
+                    <li><strong>Инфраструктура:</strong> строительство дорог (трансамазонская магистраль), гидроэлектростанций (плотина Белу-Монти), городов, добыча полезных ископаемых, золота, нефти.</li>
+                    <li><strong>Изменение климата:</strong> засухи делают леса более уязвимыми для пожаров, создавая порочный круг.</li>
+                </ul>
+                <img src="https://images.pexels.com/photos/51951/forest-fire-fire-smoke-conservation-51951.jpeg" class="img-small" alt="Лесной пожар">
+                <div class="badge" style="margin-top: 1rem;">⚠️ 80% всех случаев дефорестации вызвано агропромом, и спрос на мясо и пальмовое масло продолжает расти. Каждый год в мире производится более 70 млн тонн пальмового масла.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СЛАЙД 4: ПОСЛЕДСТВИЯ (ТЕКСТА МНОГО) -->
+    <div class="slide" id="slide4">
+        <h2><i class="fas fa-fire"></i> Последствия – цепная реакция</h2>
+        <div class="flex-img-text">
+            <div class="text">
+                <ul>
+                    <li><strong>Климат:</strong> Леса — «лёгкие планеты». Они поглощают около 2,6 млрд тонн CO₂ в год. Их уничтожение не только прекращает поглощение, но и высвобождает накопленный углерод. Вырубка лесов ответственна за 15% всех выбросов парниковых газов — больше, чем весь мировой транспорт.</li>
+                    <li><strong>Водный цикл:</strong> Леса генерируют осадки. В Амазонии 50% дождей образуется самим лесом. Вырубка приводит к засухам, высыханию рек (включая крупные, как Рио-Негро), опустыниванию и снижению урожайности сельхозугодий.</li>
+                    <li><strong>Биоразнообразие:</strong> 80% наземных видов живут в лесах. Каждый день исчезает до 137 видов растений, животных и насекомых. В тропических лесах Амазонии обитает 10% всех известных видов на Земле — многие исчезнут, даже не будучи открытыми учёными.</li>
+                    <li><strong>Социально-экономические последствия:</strong> Эрозия почвы снижает урожайность на 50–80%, коренные народы (например, племена в Амазонии и Папуа-Новой Гвинее) теряют дома и традиционные источники пищи и лекарств.</li>
+                </ul>
+                <div class="quote">По оценкам учёных, при сохранении текущих темпов вырубки к 2030 году мы потеряем 170 миллионов гектаров леса — территорию размером с Францию, Германию и Испанию вместе взятые. Это приведёт к необратимым климатическим изменениям и массовому вымиранию видов.</div>
+            </div>
+            <div class="img-side">
+                <img src="https://images.pexels.com/photos/2527369/pexels-photo-2527369.jpeg" alt="Орангутан на вырубке">
+            </div>
+        </div>
+    </div>
+
+    <!-- СЛАЙД 5: ЦЕЛИ РЕШЕНИЯ (ТЕКСТА МНОГО) -->
+    <div class="slide" id="slide5">
+        <h2><i class="fas fa-bullseye"></i> Цели решения проблемы</h2>
+        <p class="text-block"><strong>Общая цель (ООН, Нью-Йоркская декларация по лесам, 2014):</strong> Достижение <strong>нулевого баланса вырубки лесов</strong> к 2030 году. Это значит, что каждый вырубленный гектар должен быть компенсирован восстановлением или сохранением леса в другом месте. Декларацию подписали более 200 стран и крупнейших компаний мира, но темпы выполнения остаются недостаточными.</p>
+        <div class="grid-2col">
+            <div class="card-stat"><div class="big-number">🌎 30% суши</div><p>Сохранить не менее 30% площади суши (включая леса) к 2030 году (Куньминская декларация по биоразнообразию, 2022). Сейчас под охраной находится только около 15% лесов.</p></div>
+            <div class="card-stat"><div class="big-number">🌱 350 млн га</div><p>Восстановить деградированные леса и ландшафты в рамках Боннской инициативы (Боннский вызов). Это площадь больше, чем вся Индия.</p></div>
+            <div class="card-stat"><div class="big-number">❌ 0% нелегальной древесины</div><p>Исключить из цепочек поставок продукцию, связанную с нелегальной вырубкой. ЕС ввел регламент EUDR (2023), требующий от компаний доказывать, что их продукция не связана с вырубкой.</p></div>
+            <div class="card-stat"><div class="big-number">♻️ Эко-сознание</div><p>Сократить глобальный спрос на сырьё, добытое варварскими методами, через просвещение, маркировку и сертификацию.</p></div>
+        </div>
+        <img src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg" class="img-round" style="max-height: 160px;" alt="Цели восстановления">
+    </div>
+
+    <!-- СЛАЙД 6: ПУТИ РЕШЕНИЯ (ТЕКСТА МНОГО) -->
+    <div class="slide" id="slide6">
+        <h2><i class="fas fa-tools"></i> Пути решения проблемы</h2>
+        <div class="grid-2col">
+            <div>
+                <h3><i class="fas fa-gavel"></i> Законодательный уровень</h3>
+                <ul>
+                    <li>Полный запрет на вырубку в защитных лесах, заповедниках и на территориях коренных народов.</li>
+                    <li>Ужесточение наказаний за нелегальную вырубку и поджоги (вплоть до уголовной ответственности и конфискации имущества).</li>
+                    <li>Обязательная маркировка древесины и бумажной продукции (сертификация FSC — Лесной попечительский совет, PEFC). На сегодняшний день сертифицировано около 10–15% лесов мира.</li>
+                    <li>Международные соглашения о запрете импорта древесины из нелегальных источников (Lacey Act в США, EU Timber Regulation).</li>
+                </ul>
+                <img src="https://images.pexels.com/photos/868110/pexels-photo-868110.jpeg" class="img-small" alt="Сертификация FSC">
+                <h3><i class="fas fa-coins"></i> Экономический уровень</h3>
+                <ul>
+                    <li><strong>REDD+</strong> (Reducing Emissions from Deforestation and Forest Degradation) — международный механизм, при котором развитые страны платят развивающимся за сохранение лесов. Норвегия, например, выделила 1 млрд долларов Бразилии на борьбу с вырубкой.</li>
+                    <li>«Зелёные» облигации и налоговые льготы для компаний, использующих переработанные материалы и ответственно заготавливающих лес.</li>
+                    <li>Субсидирование устойчивого сельского хозяйства и агролесоводства вместо монокультур.</li>
+                </ul>
+            </div>
+            <div>
+                <h3><i class="fas fa-leaf"></i> Практические действия</h3>
+                <ul>
+                    <li><strong>Лесовосстановление:</strong> сажать не монокультуры (ель или сосна «палкой в поле»), а сложные экосистемы с местными видами растений, что восстанавливает полноценный лес за 20–30 лет.</li>
+                    <li><strong>Агролесоводство (синтронное земледелие):</strong> выращивание сельскохозяйственных культур под пологом деревьев. Сохраняет почву, воду, биоразнообразие и даёт урожай.</li>
+                    <li><strong>Создание природных коридоров:</strong> соединять фрагменты лесов, чтобы животные могли мигрировать, питаться и размножаться без изоляции.</li>
+                    <li><strong>Патрулирование и спутниковый мониторинг:</strong> системы в реальном времени (Global Forest Watch, DETER в Бразилии) позволяют выявлять вырубки за несколько дней и направлять инспекторов.</li>
+                </ul>
+                <img src="https://images.pexels.com/photos/3022304/pexels-photo-3022304.jpeg" class="img-small" alt="Посадка деревьев">
+            </div>
+        </div>
+    </div>
+
+    <!-- СЛАЙД 7: НАПРАВЛЕНИЯ (ТЕКСТА МНОГО) -->
+    <div class="slide" id="slide7">
+        <h2><i class="fas fa-hands-helping"></i> Направления: кто и как действует</h2>
+        <div class="grid-2col">
+            <div>
+                <h3><i class="fas fa-landmark"></i> Для государств</h3>
+                <ul>
+                    <li>Создание национальных парков и охраняемых территорий (сейчас под защитой только 15% лесов, цель ООН — 30% к 2030 году).</li>
+                    <li>Спутниковый мониторинг вырубок в реальном времени (Global Forest Watch, система DETER в Бразилии, EU Forest Observatory).</li>
+                    <li>Национальные программы лесовосстановления и устойчивого лесопользования (Китай высадил 66 млрд деревьев за последние 30 лет).</li>
+                    <li>Признание прав коренных народов на их территории — исследования показывают, что леса под управлением коренных общин вырубаются в 2–3 раза медленнее.</li>
+                </ul>
+                <img src="https://images.pexels.com/photos/3721690/pexels-photo-3721690.jpeg" class="img-small" alt="Спутниковый мониторинг лесов">
+                <h3><i class="fas fa-building"></i> Для бизнеса</h3>
+                <ul>
+                    <li>Переход на переработанную бумагу и картон — каждая тонна переработанной бумаги сохраняет 17 деревьев.</li>
+                    <li>Политика «нулевой дефорестации» в цепочках поставок (уже принята компаниями Unilever, Nestlé, IKEA, McDonald's).</li>
+                    <li>Инвестиции в устойчивое сельское хозяйство и агролесоводство вместо монокультур.</li>
+                    <li>Сертификация продукции по стандартам FSC, RSPO (для пальмового масла), Rainforest Alliance.</li>
+                </ul>
+            </div>
+            <div>
+                <h3><i class="fas fa-user-friends"></i> Для обычных людей (вы и я)</h3>
+                <ul>
+                    <li>✅ <strong>Покупайте продукцию с маркировкой FSC</strong> — это гарантия, что древесина не из нелегальной вырубки.</li>
+                    <li>🥩 <strong>Уменьшите потребление говядины</strong> — животноводство — главный двигатель вырубки в Амазонии. Один гамбургер "стоит" 5–10 квадратных метров тропического леса.</li>
+                    <li>🌴 <strong>Проверяйте состав продуктов</strong> на наличие пальмового масла (выбирайте RSPO-сертифицированное). Оно содержится в шоколаде, печенье, косметике, моющих средствах.</li>
+                    <li>📄 <strong>Откажитесь от бумажных чеков</strong> (они не перерабатываются из-за термохимии), сдавайте макулатуру и картон.</li>
+                    <li>🚫 <strong>Не покупайте мебель и сувениры из красного, эбенового, розового, бакаутового дерева</strong> — это часто нелегальная вырубка и исчезающие породы.</li>
+                    <li>📢 <strong>Распространяйте информацию</strong> в соцсетях и поддерживайте эко-организации (WWF, Greenpeace, Rainforest Foundation, местные проекты по лесовосстановлению).</li>
+                    <li>🌳 <strong>Посадите дерево</strong> или поддержите проекты восстановления лесов (например, Eden Reforestation Projects, Just One Tree).</li>
+                </ul>
+                <img src="https://images.pexels.com/photos/4937749/pexels-photo-4937749.jpeg" class="img-small" alt="Сдача макулатуры">
+                <img src="https://images.pexels.com/photos/6121144/pexels-photo-6121144.jpeg" class="img-small" alt="Переработка бумаги" style="margin-top: 0.5rem;">
+            </div>
+        </div>
+    </div>
+
+    <!-- СЛАЙД 8: ИТОГ (росток) -->
+    <div class="slide" id="slide8">
+        <h2><i class="fas fa-chalkboard"></i> Итог</h2>
+        <div class="flex-img-text">
+            <div class="text">
+                <div class="card-stat" style="background:#d8f0dc;">
+                    <p style="font-size: 1.1rem; font-weight: 500;"><strong>🌍 Обезлесение решаемо</strong>, но требует согласия всех — от фермера до президента, от покупателя до производителя. Каждый рубль, потраченный на продукцию из ответственных источников, — это голос за сохранение лесов.</p>
+                    <hr>
+                    <p><i class="fas fa-hand-holding-usd"></i> <strong>Жесткий посыл:</strong> Деньги, полученные от уничтожения леса, краткосрочны. По данным Всемирного банка, экономические выгоды от вырубки лесов в 10 раз меньше ущерба от изменения климата, эрозии, потери чистого воздуха и биоразнообразия.</p>
+                    <p><i class="fas fa-bullhorn"></i> <strong>Призыв к действию:</strong> Переходите на осознанное потребление, выбирайте ответственные бренды, поддерживайте восстановление лесов. Начните с малого: откажитесь от одноразовой посуды, сдавайте батарейки, посадите дерево, расскажите друзьям об этой презентации.</p>
+                </div>
+            </div>
+            <div class="img-side">
+                <img src="https://images.pexels.com/photos/987505/pexels-photo-987505.jpeg" alt="Росток надежды">
+            </div>
+        </div>
+        <div class="quote">
+            <i class="fas fa-quote-left"></i> «То, что мы делаем с лесами мира, — это лишь зеркальное отражение того, что мы делаем с собой и друг с другом» — Махатма Ганди.
+        </div>
+    </div>
+
+    <!-- СЛАЙД 9: ВОПРОСЫ И ИСТОЧНИКИ -->
+    <div class="slide" id="slide9">
+        <h2><i class="fas fa-question-circle"></i> Вопросы к аудитории и источники</h2>
+        <div class="icon-text">
+            <i class="fas fa-comments"></i> <strong>Дискуссионный вопрос:</strong> «Согласны ли вы, что личная ответственность покупателя важнее запретов со стороны государства? Или нужны только жёсткие законы и международные санкции? Почему?»
+        </div>
+        <div style="margin: 1.5rem 0;">
+            <h3><i class="fas fa-database"></i> Источники данных</h3>
+            <ul>
+                <li>Доклад ФАО ООН «Состояние лесов мира – 2025» и «Глобальная оценка лесных ресурсов».</li>
+                <li>Global Forest Watch / Всемирный институт ресурсов (WRI) — спутниковые данные в реальном времени.</li>
+                <li>Всемирный фонд дикой природы (WWF) — отчёт «Living Planet Report» и «Deforestation Fronts».</li>
+                <li>Межправительственная группа экспертов по изменению климата (МГЭИК) — 6-й оценочный доклад, глава о землепользовании.</li>
+                <li>Боннская инициатива (Боннский вызов), Нью-Йоркская декларация по лесам, Куньминская декларация по биоразнообразию.</li>
+                <li>Научные публикации в журналах Science, Nature, Global Change Biology.</li>
+            </ul>
+        </div>
+        <div class="badge" style="background:#2d6a4f; color:white; font-size: 0.95rem; padding: 0.6rem 1rem;">🌱 Каждый может внести вклад – начните с одной экопривычки сегодня. Будущее лесов и климата в наших руках.</div>
+    </div>
+
+    <footer>
+        🌳 Презентация "Обезлесение: причины, последствия, пути решения" • Кнопки или стрелки ← → • #СохранимЛеса
+    </footer>
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    let currentIndex = 0;
+
+    function showSlide(index) {
+        if (index < 0) index = 0;
+        if (index >= slides.length) index = slides.length - 1;
+        currentIndex = index;
+        slides[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        slides.forEach((slide, i) => {
+            slide.style.borderLeftColor = i === currentIndex ? '#f4a261' : '#2d6a4f';
+        });
+    }
+
+    document.getElementById('prevSlideBtn').addEventListener('click', () => showSlide(currentIndex - 1));
+    document.getElementById('nextSlideBtn').addEventListener('click', () => showSlide(currentIndex + 1));
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { showSlide(currentIndex - 1); e.preventDefault(); }
+        if (e.key === 'ArrowRight') { showSlide(currentIndex + 1); e.preventDefault(); }
+    });
+    showSlide(0);
+</script>
+</body>
+</html>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
